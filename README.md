@@ -4,7 +4,6 @@
 
 
 [![GitHub](https://img.shields.io/badge/SUPPORT%20AT-GITHUB-blue?style=for-the-badge&logo=github)](https://github.com/Onur-TURAN)
-[![TryH4CKme](hhttps://img.shields.io/hackernews/user-karma/tryhackme?style=plasti)](https://tryhackme.com/p/biyik)
 [![Linkedin](https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/onurturan.t)
 [![Contact](https://img.shields.io/badge/CONTACT-GMAIL-yellow?style=for-the-badge&logo=gmail&logoColor=white)](mailto:onurturan.t@gmail.com)
 
