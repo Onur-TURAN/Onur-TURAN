@@ -5,11 +5,11 @@
 <!-- Bu kısımda ise benim hakkımda iletişim kısımları var.-->
 
 # CONTACT ME
-|---|-----|-----|
+***
 |[![GitHub](https://img.shields.io/badge/SUPPORT%20AT-GITHUB-blue?style=for-the-badge&logo=github)](https://github.com/Onur-TURAN)|
 |[![Linkedin](https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/onurturan.t)|
 |[![Contact](https://img.shields.io/badge/CONTACT-GMAIL-yellow?style=for-the-badge&logo=gmail&logoColor=white)](mailto:onurturan.t@gmail.com)|
-|----|---|---|
+***
 ---
 # LOOK HERE BUT D0N'T CLİCK <img src="https://media4.giphy.com/media/UDGHSuv6ZZRpUInXzL/giphy.gif?cid=ecf05e4786h5ipb5460h961nxvhob8vxrwyd9zuu4no6bbic&rid=giphy.gif&ct=g" height="25">
  <img src="https://tryhackme-badges.s3.amazonaws.com/biyik.png" alt="TryHackMe">
