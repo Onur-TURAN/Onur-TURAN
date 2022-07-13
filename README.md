@@ -15,7 +15,7 @@
  <img src="https://tryhackme-badges.s3.amazonaws.com/biyik.png" alt="TryHackMe">
 
 <!-- Bu kısımda github içerisindeki yazdığım diller hakkında bilgilendirmeler veriyor.-->
-# Let's see what I did?
+# <head> Let's see what I did? </head>
 
 <p align="center">
  <img href="https://github.com/Onur-TURAN" src="https://github-readme-stats.vercel.app/api?username=Onur-TURAN&show_icons=true&count_private=true&theme=default&include_all_commits=true" height="150">| <img src="https://media2.giphy.com/media/CaiVJuZGvR8HK/giphy.gif?cid=ecf05e47k0jie5yczk20wwfpxp08ztb0x4p3fb1ctxi1b73f&rid=giphy.gif&ct=g" height="150">|   
