@@ -5,23 +5,23 @@
 <!-- Bu kısımda ise benim hakkımda iletişim kısımları var.-->
 
 # CONTACT ME
-***
-|[![GitHub](https://img.shields.io/badge/SUPPORT%20AT-GITHUB-blue?style=for-the-badge&logo=github)](https://github.com/Onur-TURAN)|
-|[![Linkedin](https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/onurturan.t)|
-|[![Contact](https://img.shields.io/badge/CONTACT-GMAIL-yellow?style=for-the-badge&logo=gmail&logoColor=white)](mailto:onurturan.t@gmail.com)|
-***
 ---
-# LOOK HERE BUT D0N'T CLİCK <img src="https://media4.giphy.com/media/UDGHSuv6ZZRpUInXzL/giphy.gif?cid=ecf05e4786h5ipb5460h961nxvhob8vxrwyd9zuu4no6bbic&rid=giphy.gif&ct=g" height="25">
- <img src="https://tryhackme-badges.s3.amazonaws.com/biyik.png" alt="TryHackMe">
+[![GitHub](https://img.shields.io/badge/SUPPORT%20AT-GITHUB-blue?style=for-the-badge&logo=github)](https://github.com/Onur-TURAN)
+[![Linkedin](https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/onurturan.t)
+[![Contact](https://img.shields.io/badge/CONTACT-GMAIL-yellow?style=for-the-badge&logo=gmail&logoColor=white)](mailto:onurturan.t@gmail.com)
+---
+
+# L00K HERE BUT D0N'T CL1CK
+ <img src="https://tryhackme-badges.s3.amazonaws.com/biyik.png" alt="TryHackMe" height="200">
 
 <!-- Bu kısımda github içerisindeki yazdığım diller hakkında bilgilendirmeler veriyor.-->
-# <head> Let's see what I did? </head>
+#|<img src="https://media2.giphy.com/media/CaiVJuZGvR8HK/giphy.gif?cid=ecf05e47k0jie5yczk20wwfpxp08ztb0x4p3fb1ctxi1b73f&rid=giphy.gif&ct=g" height="150">|LET'S SEE WHAT I DID|<img src="https://media2.giphy.com/media/CaiVJuZGvR8HK/giphy.gif?cid=ecf05e47k0jie5yczk20wwfpxp08ztb0x4p3fb1ctxi1b73f&rid=giphy.gif&ct=g" height="150">|
 
 <p align="center">
- <img href="https://github.com/Onur-TURAN" src="https://github-readme-stats.vercel.app/api?username=Onur-TURAN&show_icons=true&count_private=true&theme=default&include_all_commits=true" height="150">| <img src="https://media2.giphy.com/media/CaiVJuZGvR8HK/giphy.gif?cid=ecf05e47k0jie5yczk20wwfpxp08ztb0x4p3fb1ctxi1b73f&rid=giphy.gif&ct=g" height="150">|   
-<img href="https://github.com/Onur-TURAN" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Onur-TURAN&layout=compact&theme=default&langs_count=6&hide=html,css" height="150">|<img src="https://media2.giphy.com/media/CaiVJuZGvR8HK/giphy.gif?cid=ecf05e47k0jie5yczk20wwfpxp08ztb0x4p3fb1ctxi1b73f&rid=giphy.gif&ct=g" height="150">|
+ <img href="https://github.com/Onur-TURAN" src="https://github-readme-stats.vercel.app/api?username=Onur-TURAN&show_icons=true&count_private=true&theme=default&include_all_commits=true" height="150">   
+<img href="https://github.com/Onur-TURAN" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Onur-TURAN&layout=compact&theme=default&langs_count=6&hide=html,css" height="150">
 </p>
-
+# I'm currently working on Cyber Security area
 
 <!--**Onur-TURAN/Onur-TURAN** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
