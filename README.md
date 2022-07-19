@@ -20,7 +20,10 @@
 [![GitHub Streak](http://github-readme-streak-stats.herokuapp.com?user=Onur-TURAN&theme=dark&background=000000)](https://git.io/streak-stats)
 [![My GitHub Stats](https://github-readme-stats.vercel.app/api/?username=Onur-TURAN&count_private=true&theme=vision-friendly-dark&showicons=true)]()
 [![My GitHub Language Stats](https://github-readme-stats.vercel.app/api/top-langs/?username=Onur-TURAN&langs_count=8&layout=compact&theme=vision-friendly-dark&count_private=true)]()
+
 ---
+![](./profile-3d-contrib/profile-green-animate.svg)
+
 <!--**Onur-TURAN/Onur-TURAN** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
 Here are some ideas to get you started:
