@@ -17,7 +17,7 @@
 
 # LET'S SEE WHAT I DID 
 ---
-[![GitHub Streak](http://github-readme-streak-stats.herokuapp.com?user=Onur-TURAN&theme=dark&background=000000)](https://git.io/streak-stats)
+[![GitHub Streak](https://github-readme-streak-stats.herokuapp.com?user=Onur-TURAN&theme=dark&stroke=DD2727&sideNums=DD2727&dates=DD2727)](https://git.io/streak-stats)
 [![My GitHub Stats](https://github-readme-stats.vercel.app/api/?username=Onur-TURAN&count_private=true&theme=vision-friendly-dark&showicons=true)]()
 [![My GitHub Language Stats](https://github-readme-stats.vercel.app/api/top-langs/?username=Onur-TURAN&langs_count=8&layout=compact&theme=vision-friendly-dark&count_private=true)]()
 
