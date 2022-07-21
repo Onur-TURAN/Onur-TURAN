@@ -23,7 +23,7 @@
 
 ---
 
-![](https://github.com/Onur-TURAN/Onur-TURAN/blob/main/.github/profile-3d-contrib/profile-green-animate.svg)
+![](ghttps://github.com/Onur-TURAN/Onur-TURAN/blob/main/profile-3d-contrib/profile-night-green.svg)
 
 <!--**Onur-TURAN/Onur-TURAN** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
