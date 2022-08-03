@@ -14,6 +14,10 @@
 # L00K HERE BUT D0N'T CL1CK
 [![TRYH4CKME](https://tryhackme-badges.s3.amazonaws.com/biyik.png)](https://tryhackme.com/p/biyik)
 
+
+
+<img src="https://tryhackme-badges.s3.amazonaws.com/biyik.png" alt="TryHackMe">
+
 <!-- Bu kısımda github içerisindeki yazdığım diller hakkında bilgilendirmeler veriyor.-->
 
 # LET'S SEE WHAT I DID 
