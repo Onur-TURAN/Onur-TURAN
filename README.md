@@ -13,9 +13,9 @@
 
 # L00K HERE BUT D0N'T CL1CK
 
-
-<script src="https://tryhackme.com/badge/359754"></script>
-
+<h2>
+	<script src="https://tryhackme.com/badge/359754"></script>
+</h2>
 
 <!-- Bu kısımda github içerisindeki yazdığım diller hakkında bilgilendirmeler veriyor.-->
 
