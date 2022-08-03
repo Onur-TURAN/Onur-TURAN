@@ -12,11 +12,10 @@
 ---
 
 # L00K HERE BUT D0N'T CL1CK
-[![TRYH4CKME](https://tryhackme-badges.s3.amazonaws.com/biyik.png)](https://tryhackme.com/p/biyik)
 
 
+<script src="https://tryhackme.com/badge/359754"></script>
 
-<img src="https://tryhackme-badges.s3.amazonaws.com/biyik.png" alt="TryHackMe">
 
 <!-- Bu kısımda github içerisindeki yazdığım diller hakkında bilgilendirmeler veriyor.-->
 
