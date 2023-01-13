@@ -14,7 +14,9 @@
 # L00K HERE BUT D0N'T CL1CK
 
 
-[![badge](https://tryhackme-badges.s3.amazonaws.com/biyik.png)](https://tryhackme.com/p/biyik)
+
+
+# [![badge](https://tryhackme-badges.s3.amazonaws.com/biyik.png)](https://tryhackme.com/p/biyik)
 
 
 <!-- Bu kısımda github içerisindeki yazdığım diller hakkında bilgilendirmeler veriyor.-->
