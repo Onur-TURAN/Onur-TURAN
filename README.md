@@ -13,14 +13,12 @@
 
 # L00K HERE BUT D0N'T CL1CK
 
+<html>
 
-<head>
-<script src="https://tryhackme.com/badge/359754"></script>
-</head>
+<img src="https://tryhackme-badges.s3.amazonaws.com/biyik.png" alt="TryHackMe">
 
-# [![badge](https://tryhackme-badges.s3.amazonaws.com/biyik.png)](https://tryhackme.com/p/biyik)
-
-
+</html>
+ 
 <!-- Bu kısımda github içerisindeki yazdığım diller hakkında bilgilendirmeler veriyor.-->
 
 # LET'S SEE WHAT I DID 
