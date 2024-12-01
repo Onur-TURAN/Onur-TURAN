@@ -24,7 +24,6 @@
 # LET'S SEE WHAT I DID 
 ---
 
- ![3d](https://github.com/Onur-TURAN/Onur-TURAN/blob/main/profile-3d-contrib/profile-night-green.svg)
  [![GitHub Streak](https://github-readme-streak-stats.herokuapp.com?user=Onur-TURAN&theme=dark&stroke=DD2727&sideNums=DD2727&dates=DD2727)](https://git.io/streak-stats)
  ![My GitHub Stats](https://github-readme-stats.vercel.app/api/?username=Onur-TURAN&count_private=true&theme=vision-friendly-dark&showicons=true)
 
