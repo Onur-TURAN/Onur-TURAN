@@ -1,4 +1,4 @@
-<h2> Hello There <img src="https://raw.githubusercontent.com/ABSphreak/ABSphreak/master/gifs/Hi.gif" height="20px"></h2>
+## Hello There ![Hi](https://raw.githubusercontent.com/ABSphreak/ABSphreak/master/gifs/Hi.gif)
 
 <!-- Contact information section -->
 # CONTACT ME
@@ -13,9 +13,7 @@
 
 # L00K HERE BUT D0N'T CL1CK
 
-<html>
-<img src="https://tryhackme-badges.s3.amazonaws.com/biyik.png" alt="TryHackMe">
-</html>
+![TryHackMe](https://tryhackme-badges.s3.amazonaws.com/biyik.png)
 
 <!-- Information about the languages I have worked with on GitHub -->
 # LET'S SEE WHAT I DID 
