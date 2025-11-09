@@ -17,7 +17,16 @@
 
 <!-- Information about the languages I have worked with on GitHub -->
 # LET'S SEE WHAT I DID 
----
 
 [![GitHub Streak](https://github-readme-streak-stats.herokuapp.com?user=Onur-TURAN&theme=dark&stroke=DD2727&sideNums=DD2727&dates=DD2727)](https://git.io/streak-stats)
+
+
+---
+
+<!-- leaderboard-start -->
+## Weekly activity (auto-updated)
+
+_This section is automatically updated by the repository workflow. When the workflow runs it will replace this block with a summary of recent GitHub activity and a TryHackMe profile link._
+
+<!-- leaderboard-end -->
 ![My GitHub Stats](https://github-readme-stats.vercel.app/api/?username=Onur-TURAN&count_private=true&theme=vision-friendly-dark&showicons=true)

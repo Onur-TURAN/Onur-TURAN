@@ -1,0 +1,259 @@
+name: Leaderboard - recent committers (ytumatmuh)
+
+on:
+  workflow_dispatch:
+    inputs:
+      username:
+        description: 'GitHub username to aggregate (default: ytumatmuh)'
+        required: false
+        default: 'ytumatmuh'
+  schedule:
+    - cron: '0 8 * * 1' # weekly on Mondays at 08:00 UTC (optional)
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate leaderboard image (fetch public events + QuickChart)
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs').promises;
+            // Analyze organization 'ytumatmuh' for commits in the last 7 days
+            // target GitHub username (workflow input: username). Default to 'Onur-TURAN' if not provided
+            const username = process.env.INPUT_USERNAME || 'Onur-TURAN';
+            const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+
+            // fetch public repos for the user
+            let repos = [];
+            try {
+              repos = await github.paginate(github.rest.repos.listForUser, { username, type: 'public', per_page: 100 });
+            } catch (e) {
+              console.log(`Could not list repos for user ${username}:`, e.message || e);
+            }
+
+            const repoCounts = {}; // repo -> commit count
+            const authorCounts = {}; // author -> commit count
+            const repoAuthors = {}; // repo -> { author -> count }
+
+            for (const r of repos) {
+              if (r.archived) continue;
+              const name = r.name;
+              // list commits in the last week authored by the specified username (if available)
+              let commits = [];
+              try {
+                // filter by author to count only commits by the target user on their repos
+                commits = await github.paginate(github.rest.repos.listCommits, { owner: username, repo: name, since, author: username, per_page: 100 });
+              } catch (e) {
+                console.log(`skip repo ${name} due to error listing commits:`, e.message || e);
+                continue;
+              }
+              if (!commits || commits.length === 0) continue;
+              repoCounts[name] = commits.length;
+              repoAuthors[name] = repoAuthors[name] || {};
+              for (const c of commits) {
+                const authorName = (c.commit && c.commit.author && c.commit.author.name) || (c.author && c.author.login) || (c.commit && c.commit.author && c.commit.author.email) || c.sha;
+                authorCounts[authorName] = (authorCounts[authorName] || 0) + 1;
+                repoAuthors[name][authorName] = (repoAuthors[name][authorName] || 0) + 1;
+              }
+            }
+
+            const repoItems = Object.keys(repoCounts).map(rn => ({ repo: rn, commits: repoCounts[rn] }));
+            repoItems.sort((a,b) => b.commits - a.commits);
+
+            const authorItems = Object.keys(authorCounts).map(a => ({ author: a, commits: authorCounts[a] }));
+            authorItems.sort((a,b) => b.commits - a.commits);
+
+            const topRepos = repoItems.slice(0, 20);
+            const topAuthors = authorItems.slice(0, 20);
+
+            // Build markdown table
+            const mdLines = [];
+            mdLines.push(`# Weekly commit leaderboard for org: ${org}`);
+            mdLines.push(`_Period start:_ ${since}`);
+            mdLines.push('');
+            mdLines.push('## Top repositories (by commits in last 7 days)');
+            mdLines.push('| Repo | Commits |');
+            mdLines.push('| --- | ---: |');
+            for (const r of topRepos) mdLines.push(`| ${r.repo} | ${r.commits} |`);
+            mdLines.push('');
+            mdLines.push('## Top contributors (by commits in last 7 days)');
+            mdLines.push('| Author | Commits |');
+            mdLines.push('| --- | ---: |');
+            for (const a of topAuthors) mdLines.push(`| ${a.author} | ${a.commits} |`);
+            mdLines.push('');
+            mdLines.push('## Per-repo contributor breakdown (top 5 per repo)');
+            for (const r of topRepos) {
+              mdLines.push(`### ${r.repo} — ${r.commits} commits`);
+              mdLines.push('| Author | Commits |');
+              mdLines.push('| --- | ---: |');
+              const entries = Object.keys(repoAuthors[r.repo] || {}).map(k => ({ author: k, commits: repoAuthors[r.repo][k] }));
+              entries.sort((a,b) => b.commits - a.commits);
+              for (const e of entries.slice(0,5)) mdLines.push(`| ${e.author} | ${e.commits} |`);
+              mdLines.push('');
+            }
+
+            // Add TryHackMe profile link / section if provided as input (workflow input: tryhackme)
+            const thmUser = process.env.INPUT_TRYHACKME || 'biyik';
+            mdLines.push('');
+            mdLines.push('## TryHackMe');
+            mdLines.push(`Profile: https://tryhackme.com/p/${thmUser}`);
+
+            const md = mdLines.join('\n');
+            await fs.writeFile('leaderboard_weekly.md', md);
+            await fs.writeFile('leaderboard_weekly.json', JSON.stringify({ generated_at: new Date().toISOString(), since, org, topRepos, topAuthors, repoAuthors }, null, 2));
+
+            // produce two charts (top repos and top authors)
+            const placeholderBase64 = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII='; // 1x1 transparent PNG
+            const qc = async (labels, data, title, filename) => {
+              try {
+                if (!labels || labels.length === 0) {
+                  // no data -> write placeholder so downstream steps still find a file
+                  await fs.writeFile(filename, Buffer.from(placeholderBase64, 'base64'));
+                  console.log(`Wrote placeholder ${filename} (no data)`);
+                  return;
+                }
+                const chartConfig = { type: 'bar', data: { labels, datasets: [{ label: title, data }] }, options: { plugins: { legend: { display: false } }, title: { display: true, text: title }, scales: { y: { beginAtZero: true } } } };
+                // request chart from QuickChart
+                let qcJson;
+                try {
+                  const qcResp = await fetch('https://quickchart.io/chart/create', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chart: chartConfig, width: 1200, height: 600, backgroundColor: 'white' }) });
+                  qcJson = await qcResp.json();
+                } catch (e) {
+                  console.log(`QuickChart /create request failed for ${filename}:`, e.message || e);
+                }
+                if (qcJson && qcJson.url) {
+                  try {
+                    const imgResp = await fetch(qcJson.url);
+                    if (!imgResp.ok) throw new Error(`HTTP ${imgResp.status}`);
+                    const arr = await imgResp.arrayBuffer();
+                    await fs.writeFile(filename, Buffer.from(arr));
+                    return;
+                  } catch (e) {
+                    console.log(`QuickChart image fetch failed for ${filename}:`, e.message || e);
+                  }
+                }
+                // fallback if QuickChart failed
+                await fs.writeFile(filename, Buffer.from(placeholderBase64, 'base64'));
+                console.log(`Wrote fallback placeholder ${filename}`);
+              } catch (e) {
+                console.log('qc helper error:', e.message || e);
+                try { await fs.writeFile(filename, Buffer.from(placeholderBase64, 'base64')); } catch (e2) { console.log('could not write placeholder:', e2.message || e2); }
+              }
+            };
+
+            await qc(topRepos.map(r=>r.repo), topRepos.map(r=>r.commits), `Top repos — ${org}`, 'top_repos.png');
+            await qc(topAuthors.map(a=>a.author), topAuthors.map(a=>a.commits), `Top authors — ${org}`, 'top_authors.png');
+
+            // create a generic leaderboard.png (use top_repos as main visualization). If copy fails, try top_authors, else write placeholder.
+            try {
+              await fs.copyFile('top_repos.png', 'leaderboard.png');
+            } catch (e) {
+              console.log('copy top_repos.png -> leaderboard.png failed:', e.message || e);
+              try {
+                await fs.copyFile('top_authors.png', 'leaderboard.png');
+              } catch (e2) {
+                console.log('copy top_authors.png -> leaderboard.png failed:', e2.message || e2);
+                try { await fs.writeFile('leaderboard.png', Buffer.from(placeholderBase64, 'base64')); console.log('Wrote placeholder leaderboard.png'); } catch (e3) { console.log('could not write leaderboard.png fallback:', e3.message || e3); }
+              }
+            }
+
+            console.log('Generated leaderboard_weekly.md, leaderboard_weekly.json, top_repos.png, top_authors.png');
+
+            // Create a draft PR to update the profile README and add the images (uses GITHUB_TOKEN)
+            try {
+              const repoOwner = context.repo.owner;
+              const repoName = context.repo.repo;
+              const repoInfo = await github.rest.repos.get({ owner: repoOwner, repo: repoName });
+              const baseBranch = repoInfo.data.default_branch;
+              const baseRef = await github.rest.git.getRef({ owner: repoOwner, repo: repoName, ref: `heads/${baseBranch}` });
+              const baseSha = baseRef.data.object.sha;
+
+              // Update the repository's root README.md by default so the leaderboard appears on the repo front page
+              const readmePath = 'README.md';
+              let currentReadme = '';
+              let readmeSha = null;
+              try {
+                const existing = await github.rest.repos.getContent({ owner: repoOwner, repo: repoName, path: readmePath, ref: baseBranch });
+                const buff = Buffer.from(existing.data.content, existing.data.encoding);
+                currentReadme = buff.toString('utf8');
+                readmeSha = existing.data.sha;
+              } catch (e) {
+                // file may not exist; we'll create it
+                currentReadme = '';
+              }
+
+              const leaderboardMd = await fs.readFile('leaderboard_weekly.md', 'utf8');
+              // Replace the leaderboard section between markers. If markers don't exist, append a marker block.
+              const startMarker = '<!-- leaderboard-start -->';
+              const endMarker = '<!-- leaderboard-end -->';
+              let newReadme;
+              if (currentReadme.includes(startMarker) && currentReadme.includes(endMarker)) {
+                // replace between markers
+                const re = new RegExp(`${startMarker}[\\s\\S]*?${endMarker}`, 'g');
+                newReadme = currentReadme.replace(re, `${startMarker}\n${leaderboardMd}\n${endMarker}`);
+              } else {
+                // append new marker block at the end
+                const appendMarker = '\n\n---\n\n';
+                newReadme = currentReadme + appendMarker + startMarker + '\n' + leaderboardMd + '\n' + endMarker + '\n';
+              }
+
+              if (currentReadme.trim() === newReadme.trim()) {
+                console.log('README already up-to-date, skipping commit.');
+              } else {
+                // Commit directly to the default branch (no branch creation / PR)
+                try {
+                  const newReadmeEncoded = Buffer.from(newReadme, 'utf8').toString('base64');
+                  await github.rest.repos.createOrUpdateFileContents({ owner: repoOwner, repo: repoName, path: readmePath, message: `chore: update leaderboard (${new Date().toISOString().split('T')[0]})`, content: newReadmeEncoded, branch: baseBranch, sha: readmeSha });
+
+                  // helper to upload image files into profile/ directly on baseBranch
+                  const uploadFile = async (localPath, targetPath) => {
+                    const content = await fs.readFile(localPath);
+                    const encoded = Buffer.from(content).toString('base64');
+                    let existingSha = null;
+                    try {
+                      const existing = await github.rest.repos.getContent({ owner: repoOwner, repo: repoName, path: targetPath, ref: baseBranch });
+                      existingSha = existing.data.sha;
+                    } catch (e) {
+                      // file may not exist
+                    }
+                    await github.rest.repos.createOrUpdateFileContents({ owner: repoOwner, repo: repoName, path: targetPath, message: `chore: add ${targetPath}`, content: encoded, branch: baseBranch, sha: existingSha });
+                  };
+
+                  await uploadFile('leaderboard.png', 'profile/leaderboard.png');
+                  await uploadFile('top_repos.png', 'profile/top_repos.png');
+                  await uploadFile('top_authors.png', 'profile/top_authors.png');
+
+                  console.log(`Committed leaderboard and images directly to ${baseBranch}`);
+                } catch (e) {
+                  console.log('Direct commit failed:', e.message || e);
+                }
+              }
+            } catch (e) {
+              console.log('PR automation failed:', e.message || e);
+            }
+
+      - name: Upload leaderboard artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: leaderboard
+          path: |
+            leaderboard_weekly.md
+            leaderboard_weekly.json
+            top_repos.png
+            top_authors.png
+            leaderboard.png
+
+      - name: Print quick summary
+        run: |
+          echo "Generated leaderboard - see leaderboard_weekly.json";
+          cat leaderboard_weekly.json
